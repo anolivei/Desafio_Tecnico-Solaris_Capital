@@ -1,18 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    flask_excel.py                                     :+:      :+:    :+:    #
+#    solaris_challenge.py                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: anolivei <anolivei@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 01:07:45 by anolivei          #+#    #+#              #
-#    Updated: 2021/05/22 15:41:50 by anolivei         ###   ########.fr        #
+#    Updated: 2021/05/22 18:32:17 by anolivei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from typing import Counter
-from flask import Flask, render_template, url_for, request, jsonify
-import numpy as np
+from flask import Flask, render_template, url_for
 import pandas as pd
 
 app = Flask(__name__)
@@ -44,30 +43,35 @@ def olders_n(num):
 @app.route('/gender-distribution', methods = ['GET', 'POST'])
 def gender_distribution():
 	df = pd.read_csv("people_data.csv", encoding = "UTF-8", sep = ",", header = 0)
-	n = df["sexo"].value_counts('feminino') * 100
-	fem = int(n[0])
-	mas = int(n[1])
-	return jsonify({'Feminino': fem, 'Maculino': mas})
+	gender_distribution = df["sexo"].value_counts('feminino').sort_index() * 100
+	return render_template('gender_distribution.html', gender_distribution = gender_distribution.to_json())
+
+@app.route('/people/<int:num>', methods = ['GET', 'POST'])
+def people(num):
+	num = str(num)
+	if len(num) < 11:
+		num = num.zfill(11)
+	cpf = '{}.{}.{}-{}'.format(num[:3], num[3:6], num[6:9], num[9:])
+	df = pd.read_csv("people_data.csv", encoding = "UTF-8", sep = ",", header = 0)
+	people = df.loc[df["cpf"] == cpf]
+	return render_template('people.html', people = people.to_json())
 
 @app.route('/blood-type', methods = ['GET', 'POST'])
 def blood_type():
 	df = pd.read_csv("people_data.csv", encoding = "UTF-8", sep = ",", header = 0)
-	n = df["tipo_sanguineo"].value_counts().sort_index()
-	print(n)
-	ap = int(n[0])
-	am = int(n[1])
-	abp = int(n[2])
-	abm = int(n[3])
-	bp = int(n[4])
-	bm = int(n[5])
-	op = int(n[6])
-	om = int(n[7])
-	return jsonify({'A+': ap, 'A-': am, 'AB+': abp, 'AB-': abm, 'B+': bp, 'B-': bm, 'O+': op, 'O-': om})
+	blood_type = df["tipo_sanguineo"].value_counts()
+	return render_template('blood_type.html', blood_type = blood_type.to_json())
 
 @app.route('/peoples', methods = ['GET', 'POST'])
 def peoples():
 	df = pd.read_csv("people_data.csv", encoding = "UTF-8", sep = ",", header = 0)
 	peoples = df.sort_values(by = "nome", ascending = True)
+	return render_template('peoples.html', peoples = peoples.to_html())
+
+@app.route('/peoples/search<string:name>', methods = ['GET', 'POST'])
+def peoples_name(name):
+	df = pd.read_csv("people_data.csv", encoding = "UTF-8", sep = ",", header = 0)
+	peoples = df[df["nome"].str.lower().str.contains(str.lower(name))]
 	return render_template('peoples.html', peoples = peoples.to_html())
 
 if __name__ == '__main__':
