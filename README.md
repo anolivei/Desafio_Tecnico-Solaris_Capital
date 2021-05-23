@@ -17,6 +17,10 @@ Lá, voce poderá escolher entre as opções:<br>
 - Peoples in Alphabetical Order -> Lista os nomes de todas as pessoas no dataset em ordem alfabética
 - Find Peoples by Name -> Busca pessoas por nome ou por parte do nome (case insensitive)
 
+<p align="center">
+<img src="images/url.png" alt="drawing" width="600"/>
+</p>
+
 Requirements:
 - Python==3.9.1
 - Flask==2.0.0
