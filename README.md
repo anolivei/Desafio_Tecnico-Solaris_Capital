@@ -7,7 +7,7 @@ Para utilizar a aplicação, digite no seu terminal:
 python solaris_challenge.py
 ````
 No seu navegador, vá para o endereço http://127.0.0.1:5000/<br>
-Lá, voce poderá escolher entre as opções:<br>
+Escolha entre as opções:<br>
 - Display Data ->  Lista os nomes de todas as pessoas no dataset
 - 10 More Youngers -> Retorna uma lista das 10 pessoas mais jovens ordenadas ascendentemente, sendo possível alterar a quantidade de pessoas na própria url (por exemplo http://127.0.0.1:5000/youngers/20 irá retornar as 20 pessoas mais jovens)
 - 10 More Olders -> Retorna uma lista das 10 pessoas mais velhas ordenadas ascendentemente, sendo possível alterar a quantidade de pessoas na própria url (por exemplo http://127.0.0.1:5000/olders/20 irá mostrar as 20 pessoas mais velhas)
