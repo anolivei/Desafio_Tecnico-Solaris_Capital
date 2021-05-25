@@ -6,7 +6,7 @@
 #    By: anolivei <anolivei@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 01:07:45 by anolivei          #+#    #+#              #
-#    Updated: 2021/05/22 19:17:12 by anolivei         ###   ########.fr        #
+#    Updated: 2021/05/24 20:50:35 by anolivei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,4 +67,4 @@ def peoples_name(name):
 	return render_template('peoples.html', peoples = peoples.to_html())
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=True, host="0.0.0.0")
