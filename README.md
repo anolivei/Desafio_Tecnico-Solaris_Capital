@@ -1,4 +1,4 @@
-# Desafio_Tecnico-Solaris_Capital
+# Desafio Técnico Solaris Capital
 
 Aplicação Web feita em Flask e Python para o processo seletivo da Solaris Capital (https://www.solcap.com.br/)<br>
 <br>
